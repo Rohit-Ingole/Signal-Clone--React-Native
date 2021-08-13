@@ -7,6 +7,7 @@ import firebase from "firebase";
 
 const AddChatScreen = ({ navigation }) => {
   const [input, setInput] = useState("");
+  const [icon, setIcon] = useState("");
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -20,6 +21,7 @@ const AddChatScreen = ({ navigation }) => {
       .collection("chats")
       .add({
         chatName: input,
+        chatImage: icon,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
@@ -38,9 +40,14 @@ const AddChatScreen = ({ navigation }) => {
         leftIcon={
           <Icon name="wechat" type="antdesign" size={24} color="black" />
         }
-        onSubmitEditing={createChat}
       />
-      <Button title="Create chat" onPress={createChat} />
+      <Input
+        placeholder="Chat Group Icon (optional)"
+        value={icon}
+        onChangeText={(text) => setIcon(text)}
+        leftIcon={<Icon type="entypo" name="image" size={24} color="black" />}
+      />
+      <Button title="Create chat" onPress={createChat} disabled={!input} />
     </View>
   );
 };

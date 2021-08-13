@@ -80,10 +80,11 @@ const HomeScreen = ({ navigation }) => {
     return unsubscribe;
   }, []);
 
-  const enterChat = (id, chatName) => {
+  const enterChat = (id, chatName, chatImage) => {
     navigation.navigate("Chat", {
       id,
       chatName,
+      chatImage,
     });
   };
 
@@ -91,10 +92,11 @@ const HomeScreen = ({ navigation }) => {
     <SafeAreaView>
       <StatusBar style="dark" />
       <ScrollView style={styles.container}>
-        {chats?.map(({ id, data: { chatName } }) => (
+        {chats?.map(({ id, data: { chatName, chatImage } }) => (
           <CustomListItem
             id={id}
             chatName={chatName}
+            chatImage={chatImage}
             key={id}
             enterChat={enterChat}
           />

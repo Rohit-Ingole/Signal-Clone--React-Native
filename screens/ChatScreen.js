@@ -29,7 +29,9 @@ const ChatScreen = ({ navigation, route }) => {
           <Avatar
             rounded
             source={{
-              uri: "https://png.pngtree.com/element_our/png_detail/20181229/vector-chat-icon-png_302635.jpg",
+              uri:
+                route.params.chatImage ||
+                "https://png.pngtree.com/element_our/png_detail/20181229/vector-chat-icon-png_302635.jpg",
             }}
           />
           <Text style={{ color: "white", marginLeft: 10, fontWeight: "700" }}>
@@ -63,7 +65,7 @@ const ChatScreen = ({ navigation, route }) => {
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation, messages]);
 
   const sendMessage = () => {
     Keyboard.dismiss();
@@ -152,8 +154,16 @@ const ChatScreen = ({ navigation, route }) => {
               onChangeText={(text) => setInput(text)}
               onSubmitEditing={sendMessage}
             />
-            <TouchableOpacity activeOpacity={0.5} onPress={sendMessage}>
-              <Ionicons name="send" size={24} color="#2b68e6" />
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={sendMessage}
+              disabled={!input}
+            >
+              <Ionicons
+                name="send"
+                size={24}
+                color={!input ? "gray" : "#2b68e6"}
+              />
             </TouchableOpacity>
           </View>
         </>
